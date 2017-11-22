@@ -33,7 +33,7 @@ rList = []
 with tf.Session() as sess:
     sess.run(init)
     for i in range(num_episodes):
-        #Reset environment and get first new observation
+        #Reset environments and get first new observation
         s = env.reset()
         rAll = 0
         d = False
@@ -45,7 +45,7 @@ with tf.Session() as sess:
             a,allQ = sess.run([predict,Qout],feed_dict={inputs1:np.identity(16)[s:s+1]})
             if np.random.rand(1) < e:
                 a[0] = env.action_space.sample()
-            #Get new state and reward from environment
+            #Get new state and reward from environments
             s1,r,d,_ = env.step(a[0])
             #Obtain the Q' values by feeding the new state through our network
             Q1 = sess.run(Qout,feed_dict={inputs1:np.identity(16)[s1:s1+1]})
